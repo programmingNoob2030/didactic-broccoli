@@ -12,10 +12,10 @@ int partition_hoare(vector<int> &nums, int left, int right){
   int j = right + 1;
   // 进行夹逼操作
   while (1){
-    // 左指针向右边寻找小于等于基准值的元素
+    // 左指针向右边寻找大于等于基准值的元素
     do{i++;} while (pivot > nums[i]);
 
-    // 右指针向左边寻找大于等于基准值的元素
+    // 右指针向左边寻找小于等于基准值的元素
     do{ j--;} while (pivot < nums[j]);
 
     // 左右指针相遇或交叉,返回分割点并且退出循环
