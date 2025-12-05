@@ -1,8 +1,8 @@
-// P1102 A-B数对 | 调试中 2024-12-04
+// P1102 A-B数对 | 调试中 2025-12-04/05
 // 我的思路：将 A-B=C 变形为 A = B + C
 //          遍历每个元素作为B，在数组中二分查找值等于(B+C)的A
-// 当前调试：统计逻辑的边界条件处理
-// 明日目标：确保重复元素被正确计数，尝试双指针优化
+// 当前调试：如何优化时间复杂度
+// 明日目标：确保重复元素被正确计数(已经解决,但双指针的策略不正确,复杂度退化为了O(n^2))
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -43,21 +43,24 @@ int main(){
     // 题目要求为 C = A - B --> A = B + C
     // 定义target(A)
     ll target = nums[i] + c;
+
     // 二分查找
     int index = binary_search(nums, target);
     if (index != -1){
-      int left = index;
-      int right = index;
+      int left = index - 1;
+      int right = index + 1;
       while (1){
-        if (left < 0 || nums[left] != nums[index])
-          break;
-        if (right > n - 1 || nums[right] != nums[index])
-          break;
+        // 越界直接退出
+        if (left < 0 || right > n - 1) break;
+        // 如果两边都没有再符合条件的数,直接退出
+        if (nums[left] != nums[index] && nums[right] != nums[index]) break;
         if (nums[left] == nums[index]){
+          // 若从左边找到了合适的数,计数器加一,并继续往左边找
           left--;
           counter++;
         }
         if (nums[right] == nums[index]){
+          // 若从右边找到了合适的数,计数器加一,并继续往右边找
           right++;
           counter++;
         }
