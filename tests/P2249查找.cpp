@@ -2,6 +2,7 @@
 // 关键：找第一次出现 => 找到后right=mid-1继续左搜
 // 注意：1-based索引，数组已有序别排序
 // 模板：
+//   lower_bound
 //   while(l<=r){
 //       if(a[mid]==x) ans=mid, r=mid-1;
 //       else if(a[mid]>x) r=mid-1;
